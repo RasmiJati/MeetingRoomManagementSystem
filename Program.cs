@@ -1,3 +1,8 @@
+using MeetingRoomSystem.Data;
+using MeetingRoomSystem.Models.Domain;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace MeetingRoomSystem
 {
     public class Program
@@ -8,8 +13,16 @@ namespace MeetingRoomSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddDbContext<MeetingDbContext>(options =>
+                    options.UseSqlServer(builder.Configuration
+                    .GetConnectionString("MeetingRoomDbConnectionString")));
             var app = builder.Build();
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<MeetingDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -25,7 +38,7 @@ namespace MeetingRoomSystem
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
