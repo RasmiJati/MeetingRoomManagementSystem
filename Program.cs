@@ -1,5 +1,7 @@
 using MeetingRoomSystem.Data;
 using MeetingRoomSystem.Models.Domain;
+using MeetingRoomSystem.Repositories.Abstract;
+using MeetingRoomSystem.Repositories.Implementation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +25,8 @@ namespace MeetingRoomSystem
                 .AddDefaultTokenProviders();
 
             builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
+
+            builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
