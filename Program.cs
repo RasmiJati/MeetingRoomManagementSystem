@@ -15,18 +15,26 @@ namespace MeetingRoomSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+           
             builder.Services.AddDbContext<MeetingDbContext>(options =>
                     options.UseSqlServer(builder.Configuration
                     .GetConnectionString("MeetingRoomDbConnectionString")));
-            var app = builder.Build();
-
+            
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<MeetingDbContext>()
-                .AddDefaultTokenProviders();
+               .AddEntityFrameworkStores<MeetingDbContext>()
+               .AddDefaultTokenProviders();
 
             builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
 
             builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+
+
+
+
+
+            var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

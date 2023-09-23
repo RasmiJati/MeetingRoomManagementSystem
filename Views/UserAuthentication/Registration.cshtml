@@ -1,0 +1,56 @@
+﻿@model MeetingRoomSystem.Models.DTO.RegistrationModel
+
+@{
+    ViewData["Title"] = "Registration";
+}
+
+
+
+<form method="post" asp-action="Registration">
+
+    <div class=" border p-3 mt-4" style="width : 800px">
+        <div class="row pb-2">
+            <h2 class="text-primary">Register</h2>
+            <hr />
+        </div>
+
+        <div asp-validation-summary="All"></div>
+
+        <div class=" mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class=" text-danger"></span>
+        </div>
+        <div class=" mb-3">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class=" text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class=" form-control" />
+            <span asp-validation-for="Email" class=" text-danger"></span>
+
+        </div>
+
+        <div class=" mb-3">
+            <label asp-for="Password"></label>
+            <input type="password" asp-for="Password" class=" form-control" />
+            <span asp-validation-for="Password" class=" text-danger"></span>
+
+        </div>
+        <div class=" mb-3">
+            <label asp-for="PasswordConfirmed"></label>
+            <input type="password" asp-for="PasswordConfirmed" class=" form-control" />
+            <span asp-validation-for="PasswordConfirmed" class=" text-danger"></span>
+
+        </div>
+
+        <button type="submit" class=" btn btn-primary" style="width:150px">Sign up</button>
+        <label class=" btn">
+            Already a user?
+            <a asp-controller="UserAuthentication" asp-action="Login" class=" btn btn-secondary" style="width: 150px">Sign in</a>
+        </label>
+
+    </div>
+</form>

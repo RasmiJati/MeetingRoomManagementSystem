@@ -1,7 +1,52 @@
-﻿
+﻿@model MeetingRoomSystem.Models.DTO.LoginModel;
 @{
     ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
+<body>
+
+    <form method="post" asp-action="Login">
+
+        <div class=" border p-3 mt-4" style="width:50%">
+            <div class="row pb-2">
+                <h2 class="text-primary">Login</h2>
+                <hr />
+            </div>
+
+            <div asp-validation-summary="All"></div>
+
+            <div class=" mb-3">
+                <label asp-for="UserName"></label>
+                <input type="text" asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class=" text-danger"></span> @* DefineSection validation *@
+            </div>
+
+
+            <div class=" mb-3">
+                <label asp-for="Password"></label>
+                <input type="password" asp-for="Password" class=" form-control" />
+                <span asp-validation-for="Password" class=" text-danger"></span>
+            </div>
+
+            @if (TempData["msg"] != null)
+            {
+                <div class=" msg">
+                    @TempData["msg"]
+                </div>
+            }
+
+            <button type="submit" class=" btn btn-primary" style="width:150px">Sign in</button>
+            <label class=" btn">
+                Not a user yet?
+                <a asp-controller="UserAuthentication" asp-action="Registration" class=" btn btn-secondary" style="width: 150px">Sign up </a>
+            </label>
+        </div>
+    </form>
+</body>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
 
